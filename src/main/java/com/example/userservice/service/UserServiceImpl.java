@@ -18,10 +18,9 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private ObjectMapper objectMapper;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserServiceImpl(UserRepository userRepository, ObjectMapper objectMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
@@ -50,10 +49,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = objectMapper.convertValue(userDto, UserEntity.class);
         userEntity.setEncryptedPwd(bCryptPasswordEncoder.encode(userDto.getPwd()));
         userRepository.save(userEntity);
-
-        UserDto returnUserDto = objectMapper.convertValue(userEntity, UserDto.class);
-
-        return returnUserDto;
+        return objectMapper.convertValue(userEntity, UserDto.class);
     }
 
     @Override
