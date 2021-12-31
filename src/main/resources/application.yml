@@ -19,6 +19,7 @@ spring:
     config:
       uri: http://127.0.0.1:8888
       name: ecommerce
+      profile: dev
 
 eureka:
   instance:
@@ -41,7 +42,7 @@ logging:
 #  secret: user_token
 
 management:
-  endpoint:
+  endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: "*"
